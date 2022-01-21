@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -13,4 +17,12 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.input-with-label:focus + label{
+  @apply text-sm -translate-x-3 -translate-y-9 text-blue-900;
+}
+
+.label-up{
+  @apply text-sm -translate-x-3 -translate-y-9 text-blue-900;
 }
