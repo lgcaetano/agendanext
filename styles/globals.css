@@ -26,3 +26,16 @@ a {
 .label-up{
   @apply text-sm -translate-x-3 -translate-y-9 text-blue-900;
 }
+
+.full-minus-nav {
+  height: calc(100vh - 64px)
+}
+
+.min-dash-height {
+  min-height: calc(100vh - 64px);
+}
+
+.-border-x-2{
+  border-left-width: -10px;
+  border-right-width: -10px;
+}

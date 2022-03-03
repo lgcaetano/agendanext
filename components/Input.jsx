@@ -13,12 +13,14 @@ export default function Input(props){
 
     const inputRef = useRef(null)
 
-    const { bindFunction, inlineProps } = {...props} 
+    const { id, name, type } = props
+
+    const inlineProps = {id, name, type}
     
     function handleChange(e){
         const inputValue = e.target.value
         setValue(inputValue)
-        bindFunction(inputValue)
+        props.bindFunction(inputValue)
     }
 
 
@@ -29,7 +31,7 @@ export default function Input(props){
              border-2 shadow-md px-4 outline-blue-500 input-with-label" {...inlineProps}/>
 
             <label htmlFor={props.name} className={`relative -top-12 left-6 transition-all pointer-events-none
-            text-gray-500 self-start ${(value) ? "label-up" : ""}`}>
+            text-gray-500 self-start ${(value || props.noDynamic) ? "label-up" : ""}`}>
                 {upperFirst(props.name)}
             </label>
         </div>

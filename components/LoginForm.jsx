@@ -16,7 +16,7 @@ export default function LoginForm(props){
 
     return (
         <form action="" className="flex flex-col justify-around items-center p-10 
-        rounded-3xl shadow-2xl bg-blue-100" onSubmit={handleSubmit}>
+        rounded-3xl shadow-2xl bg-blue-100 " onSubmit={handleSubmit}>
 
             <div className="text-2xl text-blue-900 font-bold">
                 Login
