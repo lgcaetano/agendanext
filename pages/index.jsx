@@ -9,7 +9,10 @@ import { useRouter } from 'next/router'
 export default function Home() {
 
   
-  const { isAuthenticated } = useContext(UserContext)
+  const context = useContext(UserContext)
+  console.log(context)
+
+  const { isAuthenticated } = context
 
   const router = useRouter()
 
@@ -19,10 +22,8 @@ export default function Home() {
 
 
   return (
-    <UserProvider>
       <Layout>
         <LoginForm />
       </Layout>
-    </UserProvider>
   );
 }

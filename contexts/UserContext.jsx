@@ -8,9 +8,11 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState({})
     const [error, setError] = useState("")
 
-    const isAuthenticated = !!user
-
     const token = user?.token
+    
+    const isAuthenticated = !!token
+    
+    const reminders = user?.appointments
 
     const api = useMemo(() => {
         return axios.create({
@@ -21,15 +23,16 @@ export const UserProvider = ({ children }) => {
         })  
     }, [token])   
 
-    const reminders = user?.appointments
 
     async function logIn(loginInfo){
 
         const { data } = await api.post("/login", loginInfo)
+
+        console.log("DATA:", data)
         if(data.error){
             setError(data.error)
         } else {
-            setUser(data)
+            setUser({...user, ...data})
         }
     }
 
@@ -38,7 +41,7 @@ export const UserProvider = ({ children }) => {
         if(data.error){
             setError(data.error)
         } else {
-            setUser(data)
+            setUser({...user, ...data})
         }
     }
 
