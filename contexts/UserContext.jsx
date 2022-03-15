@@ -5,14 +5,19 @@ import { createContext, useMemo, useState } from "react";
 export const UserContext = createContext({})
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState()
     const [error, setError] = useState("")
 
     const token = user?.token
     
     const isAuthenticated = !!token
     
-    const reminders = user?.appointments
+    const reminders = useMemo(() => {
+        console.log(user?.appointments)
+        return user?.appointments?.map(reminder => {
+            return {...reminder, date: new Date(reminder.date)}
+        })
+    }, [user?.appointments])
 
     const api = useMemo(() => {
         return axios.create({
@@ -21,7 +26,21 @@ export const UserProvider = ({ children }) => {
                 'x-access-token': token
             }
         })  
-    }, [token])   
+    }, [token]) 
+    
+    
+    async function signUp(userInfo){
+        const { data } = await api.post("/newUser", userInfo)
+
+        console.log("DATA:", data)
+        if(data.error){
+            setError(data.error)
+        } else {
+            const newUserData = data
+            const newData = { ...newUserData, token: data.token }
+            setUser(newData)
+        }
+    }
 
 
     async function logIn(loginInfo){
@@ -37,20 +56,40 @@ export const UserProvider = ({ children }) => {
     }
 
     async function postReminder(reminder){
-        const { data } = await api.post(`/users/${user.name}`, reminder)
+
+        const postData = { ...reminder, name: user.name }
+
+        const { data } = await api.post(`/users/${user.name}`, postData)
         if(data.error){
+            console.log(data.error)
             setError(data.error)
         } else {
-            setUser({...user, ...data})
+            const newUserData = data
+            const newData = { ...newUserData, token: data.token }
+            console.log(newData)
+            setUser(newData)
         }
     }
 
     async function recoverReminders(){
-        const { data } = api.get(`/users/${user.name}/reminders`)
+        const { data } = await api.get(`/users/${user.name}/reminders`)
         if(data.error)
             setError(data.error)
         else {
             setUser({ ...user, ...data })
+        }
+    }
+
+
+    async function deleteReminder(id){
+        const { data } = await api.delete(`/users/${user.name}/${id}`)
+        if(data.error){
+            console.log(data.error)
+            setError(data.error)
+        } else {
+            const newUserData = data
+            const newData = { ...newUserData, token: data.token }
+            setUser(newData)
         }
     }
 
@@ -63,6 +102,8 @@ export const UserProvider = ({ children }) => {
           recoverReminders,
           postReminder,
           logIn,
+          signUp,
+          deleteReminder
         }}
       >
         {children}

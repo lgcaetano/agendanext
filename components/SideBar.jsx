@@ -2,7 +2,7 @@ import SideBarOption from "./SideBarOption"
 import ReminderForm from "./ReminderForm"
 import { useState } from "react"
 
-export function SideBar(){
+export function SideBar({ showExpired, setExpired }){
 
     const [formFlag, setFormFlag] = useState(false)
 
@@ -18,8 +18,8 @@ export function SideBar(){
             
             <ReminderForm closeFun={() => setFormFlag(false)} hidden={!formFlag}></ReminderForm>
             
-            <SideBarOption content="Scheduled reminders"></SideBarOption>
-            <SideBarOption content="Expired reminders"></SideBarOption>
+            <SideBarOption content="Scheduled reminders" selected={!showExpired} clickFun={() => setExpired(false)}></SideBarOption>
+            <SideBarOption content="Expired reminders" selected={showExpired} clickFun={() => setExpired(true)}></SideBarOption>
         </nav>
     )
 }

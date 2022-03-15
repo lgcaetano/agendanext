@@ -6,24 +6,23 @@ import { useContext, useEffect } from 'react'
 import { UserContext } from '../contexts/UserContext'
 import { useRouter } from 'next/router'
 
-export default function Home() {
+export default function Home({ signUp }) {
 
   
   const context = useContext(UserContext)
-  console.log(context)
 
-  const { isAuthenticated } = context
+  const { isAuthenticated, user } = context
 
   const router = useRouter()
 
-  useEffect(() => {
-    if (isAuthenticated) router.push("/dashboard");
-  }, [isAuthenticated]);
+  console.log(isAuthenticated, user)
 
+  if (isAuthenticated) 
+    router.push("/dashboard")
 
   return (
       <Layout>
-        <LoginForm />
+        <LoginForm signUpFlag={signUp}/>
       </Layout>
   );
 }

@@ -1,14 +1,21 @@
 import Input from "./Input"
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { UserContext } from "../contexts/UserContext"
 
 export default function ReminderForm(props){
 
-    function submitHandler(e){
-        e.preventDefault()
-    }
-    
+    const { postReminder } = useContext(UserContext)
+
     const [date, setDate] = useState(null)
     const [label, setLabel] = useState(null)
+    
+    function submitHandler(e){
+        e.preventDefault()
+        postReminder({
+            date,
+            label
+        })
+    }
 
     return(
         <form action="#" className={`flex flex-col items-center transition-all overflow-hidden 
@@ -23,7 +30,7 @@ export default function ReminderForm(props){
                 Set new reminder:
             </h1>
         
-            <Input type="date" name="date" id="date-in" bindFunction={setDate} noDynamic={true}/>
+            <Input type="datetime-local" name="date" id="date-in" bindFunction={setDate} noDynamic={true}/>
             <Input type="text" name="what should we remind you of?" id="label-in" bindFunction={setLabel}/>
             
             <button type="submit" className="border-2 border-white bg-gradient-to-r from-green-400 to-green-700

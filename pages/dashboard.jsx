@@ -1,11 +1,13 @@
 import Layout from "../components/Layout";
 import { SideBar } from "../components/SideBar";
 import Board from "../components/Board";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useRouter } from "next/router";
 
 export default function Dashboard(){
+
+    const [showExpired, setShowExpired] = useState(false)
 
     const { isAuthenticated } = useContext(UserContext)
 
@@ -18,8 +20,8 @@ export default function Dashboard(){
     return (
         <Layout>
             <div className="w-full h-full flex justify-between full-minus-nav overflow-y-scroll min-dash-height">
-                <SideBar></SideBar>
-                <Board></Board>
+                <SideBar showExpired={showExpired} setExpired={setShowExpired}></SideBar>
+                <Board showExpired={showExpired}></Board>
             </div>  
         </Layout>
     )
