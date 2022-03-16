@@ -21,7 +21,7 @@ export const UserProvider = ({ children }) => {
 
     const api = useMemo(() => {
         return axios.create({
-            baseURL: "http://localhost:2000/api",
+            baseURL: "https://lgcaetano-agenda.herokuapp.com/api",
             headers: {
                 'x-access-token': token
             }
