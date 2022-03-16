@@ -3,6 +3,7 @@ import ReminderMarker from "./ReminderMarker";
 import { useContext, useState } from "react"
 import { UserContext } from "../contexts/UserContext";
 import { useEffect } from "react";
+import { ClipLoader } from "react-spinners";
 
 const TRASH_GLYPH = ""
 const PENCIL_GLYPH = ""
@@ -16,7 +17,7 @@ export default function ReminderCard({ date, label, id }){
 
     const [labelValue, setLabelValue] = useState(label || "")
     const [edit, setEdit] = useState(false)
-    const [isLoading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
       console.log(date)
@@ -30,7 +31,7 @@ export default function ReminderCard({ date, label, id }){
         date,
         label: labelValue
       })
-      // setEdit(false)
+      setEdit(false)
       setLoading(false)
     }
 
@@ -57,7 +58,11 @@ export default function ReminderCard({ date, label, id }){
                 className="p-1 px-2 hover:bg-white rounded-full"
                 onClick={confirmChanges}
               >
-                <i className="text-green-500 fas">{CHECK_GLYPH}</i>
+                {loading ? (
+                  <ClipLoader color="green" size={18}></ClipLoader>
+                ) : (
+                  <i className="text-green-500 fas">{CHECK_GLYPH}</i>
+                )}
               </button>
             ) : (
               <button

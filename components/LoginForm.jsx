@@ -3,6 +3,8 @@ import Input from '../components/Input';
 import axios from 'axios';
 import Link from 'next/link'
 import { UserContext } from '../contexts/UserContext';
+import { MoonLoader } from 'react-spinners';
+
 
 const linkClasses = "font-bold underline"
 
@@ -11,6 +13,7 @@ const linkClasses = "font-bold underline"
 export default function LoginForm({ signUpFlag }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const {
     logIn,
@@ -24,7 +27,9 @@ export default function LoginForm({ signUpFlag }) {
       name,
       password
     }
-    signUpFlag ? signUp(info) : logIn(info)
+    setLoading(true)
+    signUpFlag ? await signUp(info) : await logIn(info)
+    setLoading(false)
   }
 
   return <form action="" className="flex flex-col justify-around items-center p-10 
@@ -36,6 +41,10 @@ export default function LoginForm({ signUpFlag }) {
 
             <Input type="username" name="name" id="name-in" bindFunction={setName}></Input>
             <Input type="password" name="password" id="password-in" bindFunction={setPassword}></Input>
+
+            <MoonLoader color="green" css={`
+              display: ${loading ? "initial" : "none"}
+            `}></MoonLoader>
 
             <div className="text-red-500 font-bold">
               {error}
