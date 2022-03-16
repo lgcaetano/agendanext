@@ -17,8 +17,11 @@ export default function Home({ signUp }) {
 
   console.log(isAuthenticated, user)
 
-  if (isAuthenticated) 
-    router.push("/dashboard")
+
+    
+    useEffect(() => {
+        if (isAuthenticated) router.push("/dashboard")
+    }, [isAuthenticated, router])
 
   return (
       <Layout>

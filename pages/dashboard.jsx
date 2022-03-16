@@ -13,7 +13,9 @@ export default function Dashboard(){
 
     const router = useRouter();
 
-    if (!isAuthenticated) router.push("/");
+    useEffect(() => {
+        if (!isAuthenticated) router.push("/");
+    }, [isAuthenticated, router])
     
 
     return (
