@@ -17,6 +17,7 @@ a {
 
 * {
   box-sizing: border-box;
+  transition: 500ms all;
 }
 
 .input-with-label:focus + label{

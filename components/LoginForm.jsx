@@ -14,7 +14,8 @@ export default function LoginForm({ signUpFlag }) {
 
   const {
     logIn,
-    signUp
+    signUp,
+    error
   } = useContext(UserContext);
 
   async function handleSubmit(e) {
@@ -35,6 +36,10 @@ export default function LoginForm({ signUpFlag }) {
 
             <Input type="username" name="name" id="name-in" bindFunction={setName}></Input>
             <Input type="password" name="password" id="password-in" bindFunction={setPassword}></Input>
+
+            <div className="text-red-500 font-bold">
+              {error}
+            </div>
 
             <div className="text-blue-700 my-3">
               {

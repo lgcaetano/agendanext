@@ -11,12 +11,11 @@ export default function Home({ signUp }) {
   
   const context = useContext(UserContext)
 
-  const { isAuthenticated, user } = context
+  const { isAuthenticated, token } = context
 
   const router = useRouter()
 
-  console.log(isAuthenticated, user)
-
+  console.log(isAuthenticated, token)
 
     
     useEffect(() => {

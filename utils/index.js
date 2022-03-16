@@ -8,6 +8,10 @@ const daysOfTheWeek = [
     "Saturday",
 ]
 
+function convertToUTC(date){
+    return new Date(new Date(date).toUTCString())
+}
+
 function isToday(date){
     const today = new Date()
     if(
@@ -57,4 +61,4 @@ function formatDate(date){
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${formatedMinutes(date)}`
 }
 
-export { formatDate, formatedMinutes, withinWeek, withinYear }
+export { formatDate, formatedMinutes, withinWeek, withinYear, convertToUTC }
